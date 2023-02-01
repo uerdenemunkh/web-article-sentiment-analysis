@@ -1,24 +1,28 @@
-import requests
-from bs4 import BeautifulSoup
+from GoogleSearch import Google
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service
+from selenium.webdriver.edge.options import Options
+from selenium.common.exceptions import NoSuchElementException
 
 
-page = requests.get('https://www.google.com/search?q=dota+2')
+google = Google()
+service = Service("C:\webdrivers\edgedriver\msedgedriver.exe")
+options = Options()
+options.add_argument('--headless')
+driver = webdriver.Edge(service=service, options=options, verbose=True)
 
-soup = BeautifulSoup(page.text, 'html.parser')
+query = 'blue carbon morrosquillo'
 
-[tag.decompose() for tag in soup("script")]
-[tag.decompose() for tag in soup("style")]
+res = google.search(query, 5, True)
+print(res)
 
-# print(soup)
+for link in res:
+    print(link)
+    driver.get(link)
+    print(driver.title)
+    tag = driver.find_element(By.TAG_NAME, 'article')
+    # print(tag.text)
 
-divs = soup.find_all("div")
-
-for div in divs:
-    print(div)
-    span = div.find_all("span")
-
-# title = soup.find('meta', property='og:title')
-# description = soup.find('meta', property='og:description')
-
-# print(title['content'])
-# print(description['content'])
+driver.quit()
