@@ -1,0 +1,2 @@
+beautifulsoup4==4.11.1
+gnews==0.2.7
