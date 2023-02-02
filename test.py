@@ -30,8 +30,8 @@ for link in links:
 
     env_claim_preds = []
     fact_check_preds = []
-    # Model expects maximum [1, 514] tensor
     for sentence in sentences:
+        # Model expects maximum [1, 514] tensor
         if len(sentences) < 514:
             env_pred = model.predict_environmental_claim(sentence)
             fact_pred = model.predict_fact_check(sentence)
