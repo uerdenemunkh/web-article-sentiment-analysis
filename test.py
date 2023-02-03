@@ -9,7 +9,7 @@ parser = Webparser(driver_dir="C:/webdrivers/edgedriver/msedgedriver.exe")
 model = Model()
 
 # search query
-query = 'climate change'
+query = 'mongolian'
 
 # search result links
 links = google.search(query, link_count=1, news=True)
@@ -28,18 +28,11 @@ for link in links:
     # split text sentence by sentence
     sentences = nltk.tokenize.sent_tokenize(text)
 
-    env_claim_preds = []
-    fact_check_preds = []
-    for sentence in sentences:
-        # Model expects maximum [1, 514] tensor
-        if len(sentences) <= 514:
-            env_pred = model.predict_environmental_claim(sentence)
-            fact_pred = model.predict_fact_check(sentence)
-            print(sentence)
-            print('--->', env_pred)
-            print('--->', fact_pred, end='\n\n')
-            env_claim_preds.append(env_pred)
-            fact_check_preds.append(fact_pred)
+    # Model expects maximum 514 words in one sentence
+    valid_sentences = [sentence for sentence in sentences if len(nltk.tokenize.word_tokenize(sentence)) <= 514]
+
+    env_claim_preds = model.predict_environmental_claim(valid_sentences)
+    fact_check_preds = model.predict_fact_check(valid_sentences)
 
     print(env_claim_preds)
     print(fact_check_preds)
