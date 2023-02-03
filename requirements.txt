@@ -4,3 +4,4 @@ GoogleNews
 transformers
 nltk
 pytorch
+Flask
