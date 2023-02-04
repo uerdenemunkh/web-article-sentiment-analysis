@@ -3,5 +3,5 @@ google
 GoogleNews
 transformers
 nltk
-pytorch
 Flask
+torch
