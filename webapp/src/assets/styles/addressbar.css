@@ -1,0 +1,25 @@
+.address-bar {
+
+}
+
+.address-bar-input {
+    font-size: 15px;
+    width: 60vw;
+    height: 40px;
+    border-width: 0px;
+    border-radius: 10px;
+    margin-right: 20px;
+    box-shadow: 1px;
+    padding: 0 15px 0 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px, rgba(0, 0, 0, 0.23) 0px 0px 3px;
+    transition: 0.3s;
+}
+
+.address-bar-input:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 6px, rgba(0, 0, 0, 0.4) 0px 0px 6px;
+    transition: 0.3s;
+}
+
+.address-bar-input:focus {
+    outline: none;
+}

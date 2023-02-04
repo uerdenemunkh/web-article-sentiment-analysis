@@ -36,3 +36,17 @@ for link in links:
 
     print(env_claim_preds)
     print(fact_check_preds)
+
+
+"""
+if __name__ == '__main__':
+    m = Model()
+    text = 'Also known as Vida Manglar—Mangrove Life—the project will sequester almost one million tonnes of CO2 over 30 years by conserving and sustainably managing 7,561 hectares of coastal mangrove ecosystem, marshes, and associated streams.'
+    sentences = nltk.tokenize.sent_tokenize(text)
+    print(sentences)
+    valid_sentences = [sentence for sentence in sentences if len(nltk.tokenize.word_tokenize(sentence)) <= 509]
+    print(valid_sentences)
+    print('------------------------------------------------------------------')
+    res = m.predict_environmental_claim(valid_sentences)
+    print(res)
+"""
