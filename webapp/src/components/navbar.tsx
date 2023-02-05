@@ -21,8 +21,9 @@ function NavButton(props: {title: string, path: string}) {
 }
 
 export default function Navbar() {
-    const [navstate, _] = useNavbar();
+    const [navstate, setNavState] = useNavbar();
     const [searchbar, setSearchbar] = useState(<Addressbar />);
+
     useEffect(() => {
         if (navstate === 'home') setSearchbar(<Addressbar />);
         else setSearchbar(<Searchbar text=''/>)

@@ -3,6 +3,7 @@
     justify-content: center;
     opacity: 1;
     animation: fade 0.5s linear;
+    margin-top: 40vh;
 }
 
 @keyframes fade {

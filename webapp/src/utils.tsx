@@ -1,4 +1,4 @@
-async function predictURL(data: string) {
+export async function predictURL(data: string) {
     try {
         const response = await fetch('http://localhost:5000/predict-url', {
             method: "POST",
@@ -11,18 +11,33 @@ async function predictURL(data: string) {
         return response.json();
     }
     catch {
-        return false;
+        return Promise.reject('SERVER DOWN');
     }
 }
 
-async function getURL(query: string) {
-    let url = 'http://localhost:5000/search?query=' + query;
+export async function getURL(query: string) {
+    let url = 'http://localhost:5000/search?news=true&query=' + query;
     try {
         const response = await fetch(url);
         return response.json();
     } catch (error) {
-        return false;
+        return Promise.reject('SERVER DOWN');
     }
 }
 
-export { predictURL, getURL }
+export async function Load(url: string) {
+    try {
+        const response = await fetch('http://localhost:5000/load', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({url: url})
+        })
+        return response.json();
+    }
+    catch {
+        return Promise.reject('SERVER DOWN');
+    }
+}

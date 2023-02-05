@@ -6,11 +6,9 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    background-color: white;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px 1px;
-}
-
-.nav-bar img {
-    width: 90px;
+    z-index: 1;
 }
 
 .nav-btn {
@@ -26,22 +24,8 @@
     transition: 0.3s;
 }
 
-.nav-btn-selected {
-    border-radius: 10px;
-    width: 100px;
-    height: 80%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 10px 0 10px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px, rgba(0, 0, 0, 0.23) 0px 0px 3px;
-    background-color: #e8f0fe;
-    color: #2192FF;
-    transition: 0.3s;
-}
-
 .nav-btn:hover {
-    background-color: #E9E8E8;
-    /* color: white; */
+    background-color: #2192FF;
+    color: #e8f0fe;
     transition: 0.3s;
 }
