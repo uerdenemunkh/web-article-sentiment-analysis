@@ -3,13 +3,16 @@ import React from 'react'
 import { useState } from 'react';
 import { getURL } from '../utils';
 import { useNavigate } from 'react-router';
+import { useNavbar } from '../context/navbarProvider';
 
 export default function Searchbar(props: {text: string}) {
     const [query, setQuery] = useState<string>(props.text);
     const navigate = useNavigate();
+    const [_, setNavState] = useNavbar();
 
     function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
+        setNavState('result');
         getURL(query).then((data) => {
             navigate("/result-google", {state: data, replace: true},);
         })

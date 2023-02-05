@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router'
 import '../assets/styles/GoogleResult.css';
 
 export default function GooglResult() {
     const location = useLocation();
-
     return (
         <div className='google-result'>
             Google result

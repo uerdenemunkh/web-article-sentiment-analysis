@@ -11,7 +11,7 @@ export function useNavbar(): [string, Function] {
 
 export function NavbarPrivider(props: any) {
 
-    const [state, setState] = useState('Google');
+    const [state, setState] = useState('home');
 
     return (
         <NavbarContext.Provider value={[state, setState]}>

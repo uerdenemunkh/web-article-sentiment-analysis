@@ -1,24 +1,20 @@
 import '../assets/styles/Google.css'
 import Searchbar from '../components/searchbar'
 import googleLogo from '../assets/imgs/Google-logo.png'
-import { useNavigate } from 'react-router';
-import { useNavbar } from '../context/navbarProvider';
+import { useNavbar } from '../context/navbarProvider'
+import { useEffect } from 'react';
 
 export default function Google() {
-    const navigate = useNavigate()
-    const [state, setState] = useNavbar();
+    const [navstate, setNavState] = useNavbar();
 
-    function onSubmit(query: string) {
-        if (query) {
-            setState('');
-            navigate('/result-google', {state: {query: query}});
-        }
-    }
+    useEffect(() => {
+        setNavState("home");
+    }, [navstate])
 
     return (
         <div className="Google">
             <img src={googleLogo} alt='google-logo'></img>
-            <Searchbar callback={onSubmit} text=''/>
+            <Searchbar text=''/>
         </div>
     )
 }
