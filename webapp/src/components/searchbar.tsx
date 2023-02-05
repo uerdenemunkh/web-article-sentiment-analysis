@@ -1,15 +1,19 @@
 import '../assets/styles/searchbar.css'
-import ISearchBar from '../interfaces/searchbar.interface'
 import React from 'react'
 import { useState } from 'react';
+import { getURL } from '../utils';
+import { useNavigate } from 'react-router';
 
-export default function Searchbar(props: ISearchBar) {
-
+export default function Searchbar(props: {text: string}) {
     const [query, setQuery] = useState<string>(props.text);
+    const navigate = useNavigate();
 
     function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
-        props.callback(query);
+        getURL(query).then((data) => {
+            navigate("/result-google", {state: data, replace: true},);
+        })
+        navigate("/loading");
     }
 
     return (

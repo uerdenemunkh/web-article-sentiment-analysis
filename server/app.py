@@ -14,6 +14,15 @@ model = Model()
 nltk.download('punkt')
 
 
+def returnStatus(data: str, code: int):
+    res = jsonify({
+        "status": data,
+        "code": code
+    })
+    res.status_code = code
+    return res
+
+
 @app.route('/')
 def index():
     return 'Server Test'
@@ -27,7 +36,7 @@ def search():
     if query:
         res = google.search(query, count, news=news)
         return jsonify({"res": res, "news": news})
-    return jsonify({"res": []})
+    return returnStatus("Bad request - no query provided", 400)
 
 
 @app.post('/predict-url')
@@ -36,13 +45,16 @@ def predict_from_url():
     try:
         url = data['url']
     except KeyError:
-        return 'Error', 404
+        return returnStatus("Bad request - key 'url' not found", 400)
     if not url:
-        return 'Error', 404
+        return returnStatus("Bad request - 'url' value not present", 400)
     text = parser.parseArticle(url)
     if not text:
         # if failed to parse article section parse body section instead
         text = parser.parseBody(url)
+    # even body not found return error response
+    if not text:
+        return returnStatus("Bad request - given 'url' not responded", 400)
     # split text sentence by sentence
     sentences = nltk.tokenize.sent_tokenize(text)
 
@@ -62,9 +74,9 @@ def predict_from_text():
     try:
         text = data['text']
     except KeyError:
-        return 'Error', 404
+        return returnStatus("Bad request - key 'text' not found", 400)
     if not text:
-        return 'Error', 404
+        return returnStatus("Bad request - 'text' has no value", 400)
     # split text sentence by sentence
     sentences = nltk.tokenize.sent_tokenize(text)
 

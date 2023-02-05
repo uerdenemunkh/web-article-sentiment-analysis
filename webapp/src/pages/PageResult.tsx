@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import { predictURL } from "../utils";
-import Loading from "../components/loading";
+import { useLocation } from "react-router"
 
 export default function PageResult() {
     const location = useLocation();
-    const [loading, setLoading] = useState<boolean>(true);
-
-    useEffect(() => {
-        predictURL(location.state.addr).then((res) => {
-            if (res) {
-                console.log(res)
-                setLoading(false);
-            }
-        })
-    }, [])
 
     return (
         <div className="page-result">
-            {loading
-            ? <Loading />
-            : location.state.addr}
+            {String(location.state.env_preds)}
+            {String(location.state.fact_preds)}
+            {String(location.state.sentences)}
         </div>
     )
 }

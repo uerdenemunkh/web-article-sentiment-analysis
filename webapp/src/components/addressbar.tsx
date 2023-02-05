@@ -1,21 +1,25 @@
 import '../assets/styles/addressbar.css'
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
-import { UserContext } from '../App';
+import { useNavbar } from '../context/navbarProvider';
+import { predictURL } from "../utils";
 
 export default function Addressbar() {
-    const {navbar} = useContext(UserContext);
     const [address, setAddress] = useState('');
     const navigate = useNavigate();
+    const [_, setNavState] = useNavbar();
 
     function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
         try {
-            const url = new URL(address);
-            navbar.setState('');
-            navigate('/result-page', {state: {addr: address}})
+            new URL(address);
+            setNavState('');
+            predictURL(address).then((data) => {
+                navigate('/result-page', {state: data, replace: true});
+            })
+            navigate('/loading');
         } catch {
-            console.log('invalid url');
+            window.alert('Invalid URL');
         }
     }
 

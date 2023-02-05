@@ -1,26 +1,25 @@
-import '../assets/styles/navbar.css'
-import Addressbar from './addressbar'
+import '../assets/styles/navbar.css';
+import Addressbar from './addressbar';
 import Searchbar from './searchbar';
-import { useContext } from 'react';
-import { UserContext } from '../App';
 import { useNavigate } from 'react-router-dom';
-import { INavbarContext } from '../interfaces/usercontext.interface';
+import { useNavbar } from '../context/navbarProvider';
+import { useEffect, useState } from 'react';
 
-function NavButton(props: {title: string, state: INavbarContext, path: string}) {
-
+function NavButton(props: {title: string, path: string}) {
     const navigate = useNavigate();
+    const [navstate, setNavState] = useNavbar();
 
     function onClick(event: React.BaseSyntheticEvent) {
         event.preventDefault();
         if (window.location.pathname != props.path) {
-            props.state.setState(props.title);
+            setNavState(props.title);
             navigate(props.path);
         }
     }
 
     let className = 'prevent-select ';
 
-    if (props.state.state === props.title) {
+    if (navstate === props.title) {
         className += 'nav-btn-selected';
     } else {
         className += 'nav-btn';
@@ -34,22 +33,26 @@ function NavButton(props: {title: string, state: INavbarContext, path: string}) 
 }
 
 export default function Navbar() {
-    const {navbar} = useContext(UserContext);
+    const [navstate, _] = useNavbar();
+    const [searchbar, setSearchbar] = useState(<Addressbar />);
 
-    function onSubmit(query: string) {
-        if (query) {
-            navbar.setState('');
+    useEffect(() => {
+        if (navstate === 'Google') {
+            if (window.location.pathname === '/') {
+                setSearchbar(<Addressbar />);
+            } else {
+                setSearchbar(<Searchbar text=''/>);
+            }
+        } else {
+            setSearchbar(<Addressbar />);
         }
-    }
+    }, []);
 
     return (
         <div className="nav-bar">
-            {(window.location.pathname === '/result-google')
-            ? 
-            <Searchbar callback={onSubmit} text=''/>
-                : <Addressbar />}
-            <NavButton title='Google' state={navbar} path='/'/>
-            <NavButton title='Enter text' state={navbar} path='/result-text'/>
+            {searchbar}
+            <NavButton title='Google' path='/'/>
+            <NavButton title='Text' path='/text-input'/>
         </div>
     )
 }

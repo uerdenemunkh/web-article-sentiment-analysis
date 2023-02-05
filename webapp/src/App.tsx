@@ -1,39 +1,30 @@
 import './assets/styles/App.css'
-import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Google from './pages/Google';
 import GooglResult from './pages/GoogleResult';
 import PageResult from './pages/PageResult';
 import TextResult from './pages/TextResult';
+import TextInput from './pages/TextInput';
 import Navbar from './components/navbar';
-import IUserContext from './interfaces/usercontext.interface';
+import { NavbarPrivider } from './context/navbarProvider';
+import Loading from './components/loading';
 
-const context: IUserContext = {
-  navbar: {state: '', setState: () => null}
-};
-
-const UserContext = React.createContext(context);
-
-function App() {
-
-  const [navState, setNavState] = useState('Google');
-
+export default function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <UserContext.Provider value={{navbar: {state: navState, setState: setNavState}}}>
+        <NavbarPrivider>
           <Navbar />
           <Routes>
             <Route path="/" element={<Google />} />
+            <Route path='/text-input' element={<TextInput />} />
             <Route path='/result-google' element={<GooglResult />} />
             <Route path='/result-page' element={<PageResult />} />
             <Route path='/result-text' element={<TextResult />} />
+            <Route path='/loading' element={<Loading />} />
           </Routes>
-        </UserContext.Provider>
+        </NavbarPrivider>
       </BrowserRouter>
     </div>
   )
 }
-
-export { UserContext };
-export default App

@@ -2,16 +2,15 @@ import '../assets/styles/Google.css'
 import Searchbar from '../components/searchbar'
 import googleLogo from '../assets/imgs/Google-logo.png'
 import { useNavigate } from 'react-router';
-import { useContext } from 'react';
-import { UserContext } from '../App';
+import { useNavbar } from '../context/navbarProvider';
 
 export default function Google() {
-    const {navbar} = useContext(UserContext);
     const navigate = useNavigate()
+    const [state, setState] = useNavbar();
 
     function onSubmit(query: string) {
         if (query) {
-            navbar.setState('');
+            setState('');
             navigate('/result-google', {state: {query: query}});
         }
     }
