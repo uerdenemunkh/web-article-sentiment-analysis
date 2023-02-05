@@ -17,7 +17,7 @@ class Model:
         features = self.env_claims_tokenizer(sentence, padding='max_length', truncation=True, return_tensors="pt", max_length=512)
         with torch.no_grad():
             scores = self.env_claims_model(**features).logits
-            label_mapping = ['no', 'yes']
+            label_mapping = ['0', '1']  # no 0, yes 1
             labels = [label_mapping[score_max] for score_max in scores.argmax(dim=1)]
         return labels
 
@@ -25,7 +25,7 @@ class Model:
         features = self.fact_check_tokenizer(sentence, padding='max_length', truncation=True, return_tensors="pt", max_length=512)
         with torch.no_grad():
             scores = self.fact_check_model(**features).logits
-            label_mapping = ['contradiction', 'entailment', 'neutral']
+            label_mapping = ['2', '1', '0']  # 2 contradiction, 1 entailment, 0 neutral
             # label = label_mapping[scores.argmax(dim=1)]
             labels = [label_mapping[score_max] for score_max in scores.argmax(dim=1)]
         return labels
