@@ -6,6 +6,15 @@
 ### Demo test
 `python test.py`
 
+## Bug fix (must!)
+Go to `app.py`. Go into grequests import on line 1.
+
+Change line 22 of `grequests.py`
+
+`curious_george.patch_all(thread=False, select=False)` to `curious_george.patch_all()`.
+
+Then run flask app.
+
 ### Running flask server locally
 `flask run`
 ## Modifying

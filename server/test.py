@@ -1,6 +1,6 @@
-from .server.model import Model
-from .server.google_search import Google
-from .server.web_parser import Webparser
+from .model import Model
+from .google_search import Google
+from .web_parser import Webparser
 import nltk
 
 
