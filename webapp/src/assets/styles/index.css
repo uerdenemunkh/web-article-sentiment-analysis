@@ -7,6 +7,12 @@ body {
     margin: 0;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
 .prevent-select {
     -webkit-user-select: none;
     user-select: none;

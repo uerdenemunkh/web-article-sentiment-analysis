@@ -41,3 +41,20 @@ export async function Load(url: string) {
         return Promise.reject('SERVER DOWN');
     }
 }
+
+export async function predictText(data: string) {
+    try {
+        const response = await fetch('http://localhost:5000/predict-text', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({text: data})
+        })
+        return response.json();
+    }
+    catch {
+        return Promise.reject('SERVER DOWN');
+    }
+}

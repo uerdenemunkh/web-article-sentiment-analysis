@@ -1,27 +1,31 @@
 .Page-result {
-    margin: 120px 70px 10px 70px;
+    margin: 100px 70px 10px 70px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.Page-result ul {
-    list-style-type: none;
-    padding: 0px;
-    margin: 0px;
-}
-
 .sentence {
-    display: flex;
     border: 1px solid rgba(100, 100, 100, 0.3);
     border-radius: 10px;
-    padding: 10px;
-    margin: 0px 0 20px 0;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90vw;
-    font-family: 'Consolas';
+    font-family: monospace;
+    width: 80vw;
+    padding: 10px 20px 10px 20px;
+    margin: 0px 0 15px 0;
+    font-size: 0.7em;
+    transition: 0.1s;
+}
+
+.sentence-bad {
+    background-color: rgba(250, 150, 150, 0.1);
+}
+
+.sentence-yes {
+    background-color: rgba(150, 250, 150, 0.1);
 }
 
 .sentence:hover {
@@ -30,16 +34,21 @@
 }
 
 .sentence-text {
-    font-size: 0.7em;
-    width: 70vw;
+    width: 60vw;
 }
 
-.sentence-label {
+
+.sentence-pred {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sentence-pred-label {
+    margin-right: 10px;
+    font-weight: 600;
     text-align: end;
-    font-size: medium;
 }
 
-.sentence-prediction {
+.sentence-pred-value {
     text-align: start;
-    font-size: medium;
 }

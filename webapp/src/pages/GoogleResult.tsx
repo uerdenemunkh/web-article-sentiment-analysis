@@ -1,36 +1,28 @@
 import { useLocation } from 'react-router'
 import '../assets/styles/GoogleResult.css';
-import { predictURL, Load } from '../utils';
+import { predictURL } from '../utils';
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
 
-function Link(props: {children: any}) {
+function Link(props: {title: string, url: string}) {
     const navigate = useNavigate();
-    const [title, setTitle] = useState<string>('');
 
-    // function onClick(event: React.SyntheticEvent) {
-    //     event.preventDefault();
-    //     try {
-    //         new URL(props.children);
-    //         predictURL(props.children).then((data) => {
-    //             navigate('/result-page', {state: data, replace: true});
-    //         })
-    //         navigate('/loading');
-    //     } catch {
-    //         window.alert('Invalid URL');
-    //     }
-    // }
-
-    useEffect(() => {
-        Load(props.children).then(data => {
-            if (data) setTitle(data['title'])
-        })
-    }, []);
+    function onClick(event: React.SyntheticEvent) {
+        event.preventDefault();
+        try {
+            new URL(props.url);
+            predictURL(props.url).then((data) => {
+                navigate('/result-page', {state: data, replace: true});
+            })
+            navigate('/loading');
+        } catch {
+            window.alert('Invalid URL');
+        }
+    }
 
     return (
-        <div className='link'>
-            <div className='link-title'>{title}</div>
-            {props.children}
+        <div className='link prevent-select' onClick={onClick}>
+            <div className='link-url'>{props.url}</div>
+            <div className='link-title'>{props.title}</div>
         </div>
     )
 }
@@ -41,7 +33,7 @@ export default function GooglResult() {
         <div className='Google-result'>
             {<ul>
             {Array.from(location.state.res, (elem: string, idx) => {
-                return <li key={idx}><Link>{elem}</Link></li>
+                return <li key={idx}><Link title={location.state.title[idx]} url={elem}/></li>
             })}
             </ul>
             }

@@ -14,20 +14,32 @@ function formatFCP(prediction: string) {
 }
 
 function Sentence(props: {text: string, p1: string, p2: string}) {
+    let p1 = formatECP(props.p1);
+    let p2 = formatFCP(props.p2);
+
+    let pred = 'sentence '
+    if (p1 === 'yes') {
+        pred += 'sentence-yes'
+    } else if (p2 !== 'neutral') {
+        pred += "sentence-bad"
+    }
+
     return (
-        <div className='sentence'>
+        <div className={pred}>
             <div className='sentence-text'>
                 {props.text}
             </div>
-            <div className='sentence-label'>
-                Environmentla claim:
-                <br/>
-                Fact check:
-            </div>
-            <div className='sentence-prediction'>
-                {formatECP(props.p1)}
-                <br/>
-                {formatFCP(props.p2)}
+            <div className='sentence-pred'>
+                <div className='sentence-pred-label'>
+                    Environmental claim:
+                    <br/>
+                    Fact check:
+                </div>
+                <div className='sentence-pred-value'>
+                    {p1}
+                    <br/>
+                    {p2}
+                </div>
             </div>
         </div>
     )
@@ -46,7 +58,7 @@ export default function PageResult() {
 
     return (
         <div className="Page-result">
-            <Statistic />
+            {/* <Statistic /> */}
             <ul>
             {Array.from(location.state.sentences, (elem: string, idx) => {
                 return <li key={idx}><Sentence text={elem} p1={location.state.env_preds[idx]} p2={location.state.fact_preds[idx]}/></li>

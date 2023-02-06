@@ -6,8 +6,9 @@ import PageResult from './pages/PageResult';
 import TextResult from './pages/TextResult';
 import TextInput from './pages/TextInput';
 import Navbar from './components/navbar';
-import { NavbarPrivider } from './context/navbarProvider';
 import Loading from './components/loading';
+import Error from './pages/Error';
+import { NavbarPrivider } from './context/navbarProvider';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             <Route path='/result-page' element={<PageResult />} />
             <Route path='/result-text' element={<TextResult />} />
             <Route path='/loading' element={<Loading />} />
+            <Route path='/error' element={<Error />} />
           </Routes>
         </NavbarPrivider>
       </BrowserRouter>

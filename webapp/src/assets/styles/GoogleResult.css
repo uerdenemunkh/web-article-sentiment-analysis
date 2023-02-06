@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30vh;
+    margin-top: 10vh;
 }
 
 .Google-result ul {
@@ -12,12 +12,26 @@
 }
 
 .link {
-    border: 1px solid rgba(100, 100, 100, 0.3);
-    border-radius: 10px;
-    margin-bottom: 30px;
-    padding: 10px;
+    width: 70vw;
+    border: 1px solid rgba(100, 100, 100, 0.2);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    padding: 15px 20px 15px 20px;
+    transition: 0.3s;
 }
 
 .link:hover {
     background-color: rgba(150, 150, 150, 0.1);
+    transition: 0.3s;
+}
+
+.link-title {
+    font-size: 1.1em;
+    margin-top: 10px;
+    color: rgb(50, 130, 255);
+}
+
+.link-url {
+    font-size: 0.7em;
+    color: rgba(0, 0, 0, 0.5);
 }
