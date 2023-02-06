@@ -1,26 +1,26 @@
 import '../assets/styles/PageResult.css';
+import "../assets/styles/statistic.css"
 import { useLocation } from "react-router";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 
-function formatECP(prediction: string) {
-    if (prediction === '0') return 'no';
-    return 'yes';
-}
-
-function formatFCP(prediction: string) {
-    if (prediction === '0') return 'neutral';
-    if (prediction === '1') return 'entailment';
-    if (prediction === '2') return 'contradiction';
+function count(array: string[], item: string) {
+    let count = 0;
+    for (let elem in array) {
+        if (elem === item) {
+            count += 1;
+        }
+    }
+    return count;
 }
 
 function Sentence(props: {text: string, p1: string, p2: string}) {
-    let p1 = formatECP(props.p1);
-    let p2 = formatFCP(props.p2);
-
     let pred = 'sentence '
-    if (p1 === 'yes') {
+    if (props.p1 === 'yes') {
         pred += 'sentence-yes'
-    } else if (p2 !== 'neutral') {
+    } else if (props.p2 !== 'neutral') {
         pred += "sentence-bad"
     }
 
@@ -36,19 +36,37 @@ function Sentence(props: {text: string, p1: string, p2: string}) {
                     Fact check:
                 </div>
                 <div className='sentence-pred-value'>
-                    {p1}
+                    {props.p1}
                     <br/>
-                    {p2}
+                    {props.p2}
                 </div>
             </div>
         </div>
     )
 }
 
-function Statistic(props: any) {
+function Statistic() {
+    const location = useLocation();
+
+    console.log(location.state.env_preds);
+
+    let yes_count = count(location.state.env_preds, 'yes');
+    let no_count = count(location.state.env_preds, 'no');
+
+    // console.log(yes_count);
+    // console.log(no_count);
+
+    const ecData = {
+        labels: ["no", "yes"]
+    }
+    const ec = location.state.env_preds;
+
     return (
         <div className='statistic'>
-            <h3>Statistic</h3>
+            <h3>Prediction result</h3>
+            <div className='chart-container'>
+                {/* <Doughnut data={} options={{ maintainAspectRatio: false }}/> */}
+            </div>
         </div>
     )
 }
@@ -58,7 +76,7 @@ export default function PageResult() {
 
     return (
         <div className="Page-result">
-            {/* <Statistic /> */}
+            <Statistic />
             <ul>
             {Array.from(location.state.sentences, (elem: string, idx) => {
                 return <li key={idx}><Sentence text={elem} p1={location.state.env_preds[idx]} p2={location.state.fact_preds[idx]}/></li>

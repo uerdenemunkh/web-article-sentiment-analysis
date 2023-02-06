@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "chart.js": "^4.2.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-loading-indicators": "^0.0.11",
     "react-router": "^6.8.0",

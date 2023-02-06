@@ -1,0 +1,10 @@
+.statistic {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    width: 30vw;
+}
