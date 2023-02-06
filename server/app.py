@@ -31,7 +31,7 @@ def index():
 @app.get('/search')
 def search():
     query = request.args.get('query', None)
-    count = request.args.get('count', 5)
+    count = request.args.get('count', 5, type=int)
     news = request.args.get('news', False, type=bool)
     if query:
         res = google.search(query, count, news=news)

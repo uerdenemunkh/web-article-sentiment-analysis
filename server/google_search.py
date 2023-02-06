@@ -5,7 +5,7 @@ from googlesearch import search
 class Google:
 
     def __init__(self) -> None:
-        self.googlenews = GoogleNews(lang='en', region='US')
+        pass
 
     def search(self, query: str, link_count: int = 1, news: bool = False):
         result = []
@@ -13,8 +13,9 @@ class Google:
             for link in search(query, tld="com", num=link_count, stop=link_count, pause=2):
                 result.append(link)
         else:
-            self.googlenews.search(query)
-            res = self.googlenews.get_links()
+            googlenews = GoogleNews(lang='en', region='US')
+            googlenews.search(query)
+            res = googlenews.get_links()
             for i in range(link_count):
                 try:
                     result.append(res[i])
