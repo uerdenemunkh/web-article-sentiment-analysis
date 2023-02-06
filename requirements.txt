@@ -4,4 +4,5 @@ GoogleNews
 transformers
 nltk
 Flask
+flask-cors
 torch
