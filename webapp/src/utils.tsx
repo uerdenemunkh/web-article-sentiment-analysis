@@ -8,10 +8,11 @@ export async function predictURL(data: string) {
               },
             body: JSON.stringify({url: data})
         })
+        if (response.status !== 200) return Promise.reject(response.status);
         return response.json();
     }
     catch {
-        return Promise.reject('SERVER DOWN');
+        return Promise.reject('Error');
     }
 }
 
@@ -19,9 +20,10 @@ export async function getURL(query: string) {
     let url = 'http://localhost:5000/search?news=true&query=' + query;
     try {
         const response = await fetch(url);
+        if (response.status !== 200) return Promise.reject(response.status);
         return response.json();
     } catch (error) {
-        return Promise.reject('SERVER DOWN');
+        return Promise.reject('Error');
     }
 }
 
@@ -35,10 +37,11 @@ export async function Load(url: string) {
               },
             body: JSON.stringify({url: url})
         })
+        if (response.status !== 200) return Promise.reject(response.status);
         return response.json();
     }
     catch {
-        return Promise.reject('SERVER DOWN');
+        return Promise.reject('Error');
     }
 }
 
@@ -52,9 +55,10 @@ export async function predictText(data: string) {
               },
             body: JSON.stringify({text: data})
         })
+        if (response.status !== 200) return Promise.reject(response.status);
         return response.json();
     }
     catch {
-        return Promise.reject('SERVER DOWN');
+        return Promise.reject('Error');
     }
 }

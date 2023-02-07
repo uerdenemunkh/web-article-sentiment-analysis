@@ -52,14 +52,16 @@ async def search():
     query = request.args.get('query', None)
     count = request.args.get('count', 5, type=int)
     news = request.args.get('news', False, type=bool)
+    titles = []
     if query:
         res = google.search(query, count, news=news)
-        titles = []
+        if not res:
+            return returnStatus("Internal Error - Google not responded", 500)
         try:
             rs = (grequests.get(url) for url in res)
             rss = grequests.map(rs)
         except Exception:
-            returnStatus("Internal Erro", 500)
+            returnStatus("Internal Error - Failed to load URL headings", 500)
         for resp in rss:
             if resp:
                 titles.append(BeautifulSoup(resp.text, 'html.parser').find('title').get_text())

@@ -12,7 +12,7 @@ function Link(props: {title: string, url: string}) {
             new URL(props.url);
             predictURL(props.url).then((data) => {
                 navigate('/result-page', {state: data, replace: true});
-            })
+            }).catch(reason => navigate("/error", {state: reason}));
             navigate('/loading');
         } catch {
             window.alert('Invalid URL');

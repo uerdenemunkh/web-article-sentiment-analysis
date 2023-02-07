@@ -15,7 +15,7 @@ export default function Searchbar(props: {text: string}) {
         setNavState('result');
         getURL(query).then((data) => {
             navigate("/result-google", {state: data, replace: true},);
-        }).catch(_ => navigate('/error'))
+        }).catch(reason => navigate('/error', {state: reason}))
         navigate("/loading");
     }
 
