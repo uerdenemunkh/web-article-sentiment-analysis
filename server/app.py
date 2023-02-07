@@ -106,7 +106,7 @@ def predict_from_url():
     # even body not found return error response
     if not text:
         return returnStatus("Bad request - given 'url' not responded", 400)
-    return returnPrediction(text, length=10)
+    return returnPrediction(text)
 
 
 @app.post('/predict-text')
