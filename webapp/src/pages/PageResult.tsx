@@ -8,8 +8,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 function count(array: string[], item: string) {
     let count = 0;
-    for (let elem in array) {
-        if (elem === item) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === item) {
             count += 1;
         }
     }
@@ -47,25 +47,56 @@ function Sentence(props: {text: string, p1: string, p2: string}) {
 
 function Statistic() {
     const location = useLocation();
-
-    console.log(location.state.env_preds);
-
     let yes_count = count(location.state.env_preds, 'yes');
     let no_count = count(location.state.env_preds, 'no');
 
-    // console.log(yes_count);
-    // console.log(no_count);
+    let neutral_count = count(location.state.fact_preds, 'neutral');
+    let entailment_count = count(location.state.fact_preds, 'entailment');
+    let contradiction_count = count(location.state.fact_preds, 'contradiction');
 
     const ecData = {
-        labels: ["no", "yes"]
+        labels: ["no", "yes"],
+        datasets: [
+            {
+                data: [no_count, yes_count],
+                backgroundColor: [
+                    'rgba(200, 200, 200, 0.3)',
+                    'rgba(50, 255, 50, 0.3)',
+                  ],
+                  borderColor: [
+                    'rgba(170, 170, 170, 1)',
+                    'rgba(0, 200, 0, 1)',
+                  ],
+                borderWidth: 1,
+            }
+        ]
     }
-    const ec = location.state.env_preds;
+
+    const factData = {
+        labels: ["neutral", "entailment", "contradiction"],
+        datasets: [
+            {
+                data: [neutral_count, entailment_count, contradiction_count],
+                backgroundColor: [
+                    'rgba(200, 200, 200, 0.3)',
+                    'rgba(200, 200, 0, 0.3)',
+                    'rgba(255, 50, 50, 0.3)',
+                  ],
+                  borderColor: [
+                    'rgba(170, 170, 170, 1)',
+                    'rgba(150, 150, 0, 1)',
+                    'rgba(200, 0, 0, 1)',
+                  ],
+                borderWidth: 1,
+            }
+        ]
+    }
 
     return (
         <div className='statistic'>
-            <h3>Prediction result</h3>
             <div className='chart-container'>
-                {/* <Doughnut data={} options={{ maintainAspectRatio: false }}/> */}
+                <div><Doughnut data={ecData} width={300} height={200} options={{ maintainAspectRatio: false }}/></div>
+                <div><Doughnut data={factData} width={350} height={200} options={{ maintainAspectRatio: false }}/></div>
             </div>
         </div>
     )
@@ -73,7 +104,6 @@ function Statistic() {
 
 export default function PageResult() {
     const location = useLocation();
-
     return (
         <div className="Page-result">
             <Statistic />
