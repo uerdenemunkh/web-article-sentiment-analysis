@@ -12,11 +12,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: monospace;
     width: 80vw;
     padding: 10px 20px 10px 20px;
     margin: 0px 0 15px 0;
-    font-size: 0.7em;
+    font-size: 0.9em;
+    font-family: monospace;
     transition: 0.1s;
 }
 
@@ -30,7 +30,7 @@
 
 .sentence:hover {
     background-color: rgba(150, 150, 150, 0.1);
-    transition: 0.1s;
+    transition: 0.2s;
 }
 
 .sentence-text {

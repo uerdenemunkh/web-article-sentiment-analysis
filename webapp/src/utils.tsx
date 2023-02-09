@@ -16,8 +16,10 @@ export async function predictURL(data: string) {
     }
 }
 
-export async function getURL(query: string) {
-    let url = 'http://localhost:5000/search?news=true&query=' + query;
+export async function getURL(query: string, news: boolean = false, count: number = 10) {
+    let url;
+    if (news) url = `http://localhost:5000/search?query=${query}&news=true&count=${count}`;
+    else url = `http://localhost:5000/search?query=${query}&count=${count}`;
     try {
         const response = await fetch(url);
         if (response.status !== 200) return Promise.reject(response.status);

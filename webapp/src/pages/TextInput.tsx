@@ -12,7 +12,7 @@ export default function TextInput() {
         if (value) {
             predictText(value).then((data) => {
                 navigate('/result-page', {state: data, replace: true});
-            }).catch(reason => navigate('/error', {state: reason}));
+            }).catch(reason => navigate('/error', {state: reason, replace: true}));
             navigate('/loading');
         } else {
             window.alert('Inset some text')

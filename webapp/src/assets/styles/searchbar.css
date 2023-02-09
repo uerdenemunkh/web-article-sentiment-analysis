@@ -24,6 +24,10 @@
     transition: 0.3s;
 }
 
+.search-news-switch {
+    position: relative;
+}
+
 .search-bar-submit {
     font-size: 1em;
     width: 100px;

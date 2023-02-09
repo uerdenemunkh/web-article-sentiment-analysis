@@ -26,12 +26,12 @@
 }
 
 .link-title {
-    font-size: 1.1em;
+    font-size: 1.3em;
     margin-top: 10px;
-    color: rgb(50, 130, 255);
+    color: rgb(50, 130, 240);
 }
 
 .link-url {
-    font-size: 0.7em;
+    font-size: 0.8em;
     color: rgba(0, 0, 0, 0.5);
 }

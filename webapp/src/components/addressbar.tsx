@@ -13,7 +13,7 @@ export default function Addressbar() {
             new URL(address);
             predictURL(address).then((data) => {
                 navigate('/result-page', {state: data, replace: true});
-            }).catch(reason => navigate('/error', {state: reason}))
+            }).catch(reason => navigate('/error', {state: reason, replace: true}))
             navigate('/loading');
         } catch {
             window.alert('Invalid URL');
