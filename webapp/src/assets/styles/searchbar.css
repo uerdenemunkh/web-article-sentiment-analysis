@@ -1,5 +1,6 @@
 .search-bar {
     margin: 5px;
+    display: flex;
 }
 
 .search-bar-input {
@@ -25,7 +26,6 @@
 }
 
 .search-news-switch {
-    position: relative;
 }
 
 .search-bar-submit {
