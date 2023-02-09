@@ -64,9 +64,13 @@ async def search():
             returnStatus("Internal Error - Failed to load URL headings", 500)
         for resp in rss:
             if resp:
-                titles.append(BeautifulSoup(resp.text, 'html.parser').find('title').get_text())
+                title = BeautifulSoup(resp.text, 'html.parser').find('title')
+                if title:
+                    titles.append(title.get_text())
+                else:
+                    titles.append('None')
             else:
-                titles.append('none')
+                titles.append('None')
         return jsonify({"res": res, "news": news, "count": count, "title": titles})
     return returnStatus("Bad request - no query provided", 400)
 
