@@ -7,12 +7,19 @@ import nltk
 from flask_cors import CORS
 from bs4 import BeautifulSoup
 
+BATCH_SIZE = 100
+
 app = Flask(__name__)
 CORS(app)
 google = Google()
 parser = Webparser(driver_dir="C:/webdrivers/edgedriver/msedgedriver.exe")
 model = Model()
 nltk.download('punkt')
+
+
+def split_to_batch(batch, chunk_size):
+    for i in range(0, len(batch), chunk_size):
+        yield batch[i:i+chunk_size]
 
 
 def returnStatus(data: str, code: int):
@@ -35,8 +42,13 @@ def returnPrediction(text: str, length: int = 0):
     # Model expects maximum 512 words in one sentence
     valid_sentences = [sentence for sentence in sentences[:length] if len(nltk.tokenize.word_tokenize(sentence)) <= 512]
 
-    env_claim_preds = model.predict_environmental_claim(valid_sentences)
-    fact_check_preds = model.predict_fact_check(valid_sentences)
+    env_claim_preds = []
+    fact_check_preds = []
+
+    for batch in split_to_batch(valid_sentences, BATCH_SIZE):
+        env_claim_preds.extend(model.predict_environmental_claim(batch))
+        fact_check_preds.extend(model.predict_fact_check(batch))
+
     return jsonify({"env_preds": env_claim_preds,
                     "fact_preds": fact_check_preds,
                     "sentences": valid_sentences})
