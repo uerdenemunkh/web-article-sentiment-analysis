@@ -1,4 +1,7 @@
-from model import Model
+from google_search import Google
 
+g = Google()
 
-m = Model()
+res = g.search("python", 5, True)
+
+print(res)

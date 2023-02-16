@@ -71,9 +71,10 @@ async def search():
             return returnStatus("Internal Error - Google not responded", 500)
         try:
             rs = (grequests.get(url) for url in res)
-            rss = grequests.map(rs)
-        except Exception:
-            returnStatus("Internal Error - Failed to load URL headings", 500)
+            rss = grequests.map(rs, gtimeout=10)
+        except Exception as e:
+            print(e)
+            return returnStatus("Internal Error - Failed to load URL headings", 500)
         for resp in rss:
             if resp:
                 title = BeautifulSoup(resp.text, 'html.parser').find('title')
