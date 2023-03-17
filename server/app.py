@@ -19,7 +19,7 @@ nltk.download('punkt')
 
 def split_to_batch(batch, chunk_size):
     for i in range(0, len(batch), chunk_size):
-        yield batch[i:i+chunk_size]
+        yield batch[i:i + chunk_size]
 
 
 def returnStatus(data: str, code: int):
